@@ -6,8 +6,17 @@ This repo aims to build a complete flow for pre-training, fine-tuning and servin
 - https://docs.google.com/spreadsheets/d/1p9K_GhfJmuSfJgssHxk2U8KZT0OCgGcqunqfN5ASPF8/edit?gid=1006#gid=1006
 
 **Data**
+We get data from these sources:
+
 - https://huggingface.co/datasets/ai-lab/MBD
 - https://huggingface.co/datasets/ai-lab/MBD-mini
+
+To download data:
+
+```bash
+cd data
+bash script.sh
+```
 
 **Reference**
 - https://arxiv.org/html/2611.03302v1
