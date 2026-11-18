@@ -1,3 +1,4 @@
 data/mbd_mini/
 .venv/
 .DS_Store
+sim/gate_log.jsonl
