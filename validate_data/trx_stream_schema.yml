@@ -1,0 +1,68 @@
+# Contract for one streamed batch of detail/trx.
+# Types match what Spark sends over Arrow (int32, float32, timestamp[us, UTC])
+# after the validator converts them to pandas nullable dtypes.
+# coerce: false -> a wrong type is reported, never silently converted.
+schema_type: dataframe
+version: 0.36.0
+name: transactions_batch
+description: One 1,000-row batch of MBD-mini transactions (detail/trx)
+strict: true
+coerce: false
+columns:
+  client_id:
+    dtype: str
+    nullable: false
+    checks:
+      str_matches: "^[0-9a-f]{64}$"
+  event_time:
+    dtype: "datetime64[us, UTC]"
+    nullable: false
+  amount:
+    dtype: Float32
+    nullable: false
+    checks:
+      greater_than: 0
+  event_type:
+    dtype: Int32
+    nullable: false
+    checks:
+      in_range: {min_value: 1, max_value: 56}
+  event_subtype:
+    dtype: Int32
+    nullable: false
+    checks:
+      in_range: {min_value: 1, max_value: 62}
+  currency:
+    dtype: Int32
+    nullable: true
+    checks:
+      in_range: {min_value: 1, max_value: 17}
+  src_type11:
+    dtype: Int32
+    nullable: true
+  src_type12:
+    dtype: Int32
+    nullable: true
+  dst_type11:
+    dtype: Int32
+    nullable: true
+  dst_type12:
+    dtype: Int32
+    nullable: true
+  src_type21:
+    dtype: Int32
+    nullable: true
+  src_type22:
+    dtype: Int32
+    nullable: true
+  src_type31:
+    dtype: Int32
+    nullable: true
+  src_type32:
+    dtype: Int32
+    nullable: true
+  fold:
+    dtype: Int32
+    nullable: false
+    checks:
+      isin: [0, 1, 2, 3, 4]
